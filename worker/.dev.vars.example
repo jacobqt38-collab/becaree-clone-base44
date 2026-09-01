@@ -1,0 +1,9 @@
+# 32-byte AES-GCM key encoded as base64. Generate with:
+# node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+ENCRYPTION_KEY_B64=
+
+# Required for admin review endpoints; use a long random value.
+ADMIN_API_TOKEN=
+
+# Optional in local development; required in production if Turnstile enforcement is enabled.
+TURNSTILE_SECRET_KEY=

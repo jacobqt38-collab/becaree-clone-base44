@@ -1,0 +1,19 @@
+name = "becaree-api"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGIN = "https://tamnbcare.online"
+RATE_LIMIT_PER_MINUTE = "60"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "becaree"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Set these with `wrangler secret put`, never in this file:
+# ENCRYPTION_KEY_B64
+# ADMIN_API_TOKEN
+# TURNSTILE_SECRET_KEY
