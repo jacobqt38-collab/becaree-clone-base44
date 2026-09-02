@@ -18,7 +18,7 @@ done
 test -n "$create"
 
 curl -fsS -X POST "$base/api/applications/$app_id/steps/customer_info" -H 'Content-Type: application/json' -d '{"data":{"ownerName":"عميل اختبار","nationalId":"1234567890","phone":"0500000000"}}' >/tmp/becaree-owner.json
-curl -fsS -X POST "$base/api/applications/$app_id/steps/payment" -H 'Content-Type: application/json' -d '{"data":{"cardholder_name":"عميل اختبار","card_last4":"4242","card_expiry":"12/30","cvv":"123"}}' >/tmp/becaree-payment.json
+curl -fsS -X POST "$base/api/applications/$app_id/steps/payment" -H 'Content-Type: application/json' -d '{"data":{"cardholder_name":"عميل اختبار","card_last4":"4242"}}' >/tmp/becaree-payment.json
 curl -fsS -H 'Authorization: Bearer test-admin' "$base/api/admin/applications/$app_id" >/tmp/becaree-detail.json
 curl -fsS "$base/api/applications/$app_id/steps/payment/status" >/tmp/becaree-status.json
 
