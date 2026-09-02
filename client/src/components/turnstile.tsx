@@ -26,8 +26,16 @@ function loadScript(): Promise<void> {
     s.src = SCRIPT_SRC;
     s.async = true;
     s.defer = true;
-    s.onload = () => resolve();
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    s.onload = finish;
+    s.onerror = finish;
     document.head.appendChild(s);
+    window.setTimeout(finish, 8000);
   });
   return loadingPromise;
 }
@@ -41,6 +49,10 @@ export function Turnstile({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
+  const onVerifyRef = useRef(onVerify);
+  const onExpireRef = useRef(onExpire);
+  onVerifyRef.current = onVerify;
+  onExpireRef.current = onExpire;
   const siteKey = (import.meta.env["VITE_TURNSTILE_SITE_KEY"] as string | undefined) || TEST_KEY;
 
   useEffect(() => {
@@ -51,15 +63,15 @@ export function Turnstile({
         if (widgetId.current) return;
         widgetId.current = window.turnstile.render(ref.current, {
           sitekey: siteKey,
-          callback: (token: string) => onVerify(token),
-          "expired-callback": () => onExpire?.(),
-          "error-callback": () => onExpire?.(),
+          callback: (token: string) => onVerifyRef.current(token),
+          "expired-callback": () => onExpireRef.current?.(),
+          "error-callback": () => onExpireRef.current?.(),
           theme: "light",
           language: "ar",
         });
       };
       if (window.turnstile) tryRender();
-      else setTimeout(tryRender, 200);
+      else window.setTimeout(tryRender, 200);
     });
     return () => {
       cancelled = true;
@@ -68,7 +80,7 @@ export function Turnstile({
         widgetId.current = null;
       }
     };
-  }, [siteKey, onVerify, onExpire]);
+  }, [siteKey]);
 
   return <div ref={ref} className="cf-turnstile" />;
 }
