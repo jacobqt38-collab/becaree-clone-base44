@@ -68,6 +68,7 @@ export interface ApplicationWithSteps {
 
 const API_BASE = String(import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
 const API_PREFIX = `${API_BASE}/api`;
+const LOCAL_PREVIEW_MODE = !API_BASE;
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_PREFIX}${path}`, {
@@ -108,7 +109,46 @@ export function clearStoredApplicationId(): void {
   if (typeof window !== "undefined") window.localStorage.removeItem("becaree_application_id");
 }
 
+function createLocalPreviewApplication(applicationId: string, customerId: string, insuranceType: string): ApplicationWithSteps {
+  const timestamp = new Date().toISOString();
+  return {
+    application: {
+      id: `local-${applicationId}`,
+      application_id: applicationId,
+      customer_id: customerId,
+      overall_status: "draft",
+      current_step: "insurance_quote",
+      insurance_type: insuranceType,
+      metadata: null,
+      created_at: timestamp,
+      updated_at: timestamp,
+      last_activity_at: timestamp,
+    },
+    steps: APPLICATION_STEPS.map((step) => ({
+      id: `local-${applicationId}-${step.key}`,
+      application_id: applicationId,
+      step_key: step.key,
+      title: step.title,
+      step_order: step.order,
+      status: step.order === 1 ? "draft" : "locked",
+      data: null,
+      locked: step.order !== 1,
+      submitted_at: null,
+      reviewed_at: null,
+      reviewed_by: null,
+      created_at: timestamp,
+      updated_at: timestamp,
+    })),
+  };
+}
+
 export async function createApplication(insuranceType?: string): Promise<ApplicationWithSteps | null> {
+  if (LOCAL_PREVIEW_MODE) {
+    const applicationId = generateApplicationId();
+    const customerId = getOrCreateCustomerId();
+    storeApplicationId(applicationId);
+    return createLocalPreviewApplication(applicationId, customerId, insuranceType || "car");
+  }
   try {
     const response = await request<ApplicationWithSteps>("/applications", {
       method: "POST",
@@ -122,7 +162,11 @@ export async function createApplication(insuranceType?: string): Promise<Applica
     return response;
   } catch (error) {
     console.error("[workflow] createApplication failed", error);
-    return null;
+    if (!LOCAL_PREVIEW_MODE) return null;
+    const applicationId = generateApplicationId();
+    const customerId = getOrCreateCustomerId();
+    storeApplicationId(applicationId);
+    return createLocalPreviewApplication(applicationId, customerId, insuranceType || "car");
   }
 }
 
@@ -152,6 +196,7 @@ export async function submitStep(
     });
     return { success: true };
   } catch (error) {
+    if (LOCAL_PREVIEW_MODE) return { success: true };
     return { success: false, error: error instanceof Error ? error.message : "فشل حفظ البيانات" };
   }
 }
@@ -172,6 +217,7 @@ export async function submitCurrentStep(
 export async function setInsurer(companyName: string, priceSar: number): Promise<void> {
   const id = getStoredApplicationId();
   if (!id) return;
+  if (LOCAL_PREVIEW_MODE) return;
   await request(`/applications/${encodeURIComponent(id)}/insurer`, {
     method: "PATCH",
     body: JSON.stringify({ companyName, priceSar }),
@@ -179,6 +225,7 @@ export async function setInsurer(companyName: string, priceSar: number): Promise
 }
 
 export async function updateCurrentStep(applicationId: string, stepKey: string): Promise<void> {
+  if (LOCAL_PREVIEW_MODE) return;
   await request(`/applications/${encodeURIComponent(applicationId)}/current-step`, {
     method: "PATCH",
     body: JSON.stringify({ stepKey }),
