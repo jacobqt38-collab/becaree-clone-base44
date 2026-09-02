@@ -152,7 +152,7 @@ function HomePage() {
       <SiteHeader />
       <main className="flex-1 overflow-hidden pt-16 md:pt-20">
         <section className="bg-primary-50">
-          <div className="container-x flex min-h-[650px] max-w-3xl flex-col items-center justify-center py-8 text-center md:py-12">
+          <div className="container-x flex min-h-[560px] max-w-3xl flex-col items-center justify-center py-6 text-center sm:min-h-[650px] sm:py-8 md:py-12">
             <img
               src={heroImage}
               alt="عميل سعودي بجانب سيارة مؤمّنة"
@@ -176,11 +176,11 @@ function HomePage() {
         </section>
 
         <section aria-label="شركاء التأمين" className="border-y border-border bg-card py-5">
-          <div className="container-x flex max-w-3xl items-center justify-around gap-4 text-center">
+          <div className="container-x grid max-w-3xl grid-cols-4 items-center gap-2 text-center sm:flex sm:justify-around sm:gap-4">
             {["التعاونية", "تكافل الراجحي", "الدرع العربي", "سلامة"].map((company) => (
-              <div key={company} className="flex min-w-0 items-center gap-2 text-xs font-bold text-muted-foreground md:text-sm">
+              <div key={company} className="flex min-w-0 flex-col items-center gap-1 text-[10px] font-bold leading-4 text-muted-foreground sm:flex-row sm:gap-2 sm:text-xs md:text-sm">
                 <ShieldCheck className="h-5 w-5 shrink-0 text-primary" />
-                <span className="truncate">{company}</span>
+                <span className="max-w-full break-words">{company}</span>
               </div>
             ))}
           </div>

@@ -135,14 +135,14 @@ function OwnerPage() {
                 </div>
                 <div className="md:col-span-2">
                   <label className="mb-1.5 block text-sm font-medium text-dark-700">رمز التحقق</label>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
                     <div className="flex items-center gap-2 rounded-xl bg-dark-100 px-4 py-3 font-mono text-lg font-bold tracking-widest text-dark-800" dir="ltr">
                       {captcha.a} + {captcha.b} = ?
                       <button type="button" onClick={() => { setCaptcha(newCaptcha()); update("captcha", ""); }} className="text-dark-400 hover:text-primary-600" aria-label="تحديث رمز التحقق">
                         <RefreshCw className="h-4 w-4" />
                       </button>
                     </div>
-                    <input value={form.captcha} onChange={(e) => update("captcha", e.target.value.replace(/\D/g, "").slice(0, 2))} className="input-field w-28 text-center" placeholder="الناتج" inputMode="numeric" dir="ltr" />
+                    <input value={form.captcha} onChange={(e) => update("captcha", e.target.value.replace(/\D/g, "").slice(0, 2))} className="input-field w-full text-center sm:w-28" placeholder="الناتج" inputMode="numeric" dir="ltr" />
                   </div>
                   {err("captcha")}
                 </div>

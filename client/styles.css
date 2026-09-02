@@ -239,13 +239,39 @@
 
   html {
     font-family: var(--font-sans);
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    min-width: 0;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    min-width: 0;
+    max-width: 100%;
   }
 
   ::selection {
@@ -257,7 +283,9 @@
 /* BeCaree component utilities (Arabic public site) */
 @utility container-x {
   margin-inline: auto;
+  width: 100%;
   max-width: 80rem;
+  box-sizing: border-box;
   padding-inline: 1rem;
 }
 @media (min-width: 640px) {

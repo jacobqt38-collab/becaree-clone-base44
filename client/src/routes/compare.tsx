@@ -227,12 +227,12 @@ function ComparePage() {
                   }`}
                 >
 
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-xl font-bold text-white" style={{ backgroundColor: offer.color }}>
+                  <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 items-center gap-4">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-xl font-bold text-white" style={{ backgroundColor: offer.color }}>
                         {offer.companyName.charAt(0)}
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
                           <h3 className="text-lg font-bold text-dark-900">{offer.companyName}</h3>
                           <span
@@ -266,7 +266,7 @@ function ComparePage() {
                         </div>
                       </div>
                     </div>
-                    <div className="text-left">
+                    <div className="w-full text-left sm:w-auto">
                       <div className="text-xs text-dark-400 line-through">{offer.oldPrice.toLocaleString()}</div>
                       <div className="text-2xl font-extrabold text-primary-700">{offer.price.toLocaleString()}</div>
                       <div className="text-sm text-dark-500">ريال / سنوي</div>

@@ -112,7 +112,7 @@ function PaymentPage() {
               <input value={form.cardNumber} onChange={(e) => update("cardNumber", fmtCard(e.target.value))} onBlur={() => setFieldErrors((p) => ({ ...p, cardNumber: form.cardNumber ? validateCardNumber(form.cardNumber) : "" }))} required className="input-field" placeholder="0000 0000 0000 0000" inputMode="numeric" dir="ltr" />
               {fieldErrors["cardNumber"] && <p className="mt-1 text-xs text-red-600">{fieldErrors["cardNumber"]}</p>}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 min-[360px]:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-dark-700">تاريخ الانتهاء</label>
                 <input value={form.expiry} onChange={(e) => update("expiry", fmtExpiry(e.target.value))} onBlur={() => setFieldErrors((p) => ({ ...p, expiry: form.expiry ? validateExpiry(form.expiry) : "" }))} required className="input-field" placeholder="MM/YY" maxLength={5} inputMode="numeric" dir="ltr" />

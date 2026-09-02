@@ -70,17 +70,17 @@ export default function SiteFooter() {
           <div>
             <h3 className="mb-4 text-base font-bold text-white">تواصل معنا</h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-sm text-dark-400">
+              <li className="flex min-w-0 items-center gap-3 text-sm text-dark-400">
                 <Phone className="h-5 w-5 text-primary-500" />
                 <span dir="ltr">920 000 000</span>
               </li>
-              <li className="flex items-center gap-3 text-sm text-dark-400">
+              <li className="flex min-w-0 items-center gap-3 text-sm text-dark-400">
                 <Mail className="h-5 w-5 text-primary-500" />
                 info@becaree.com
               </li>
-              <li className="flex items-center gap-3 text-sm text-dark-400">
+              <li className="flex min-w-0 items-start gap-3 text-sm text-dark-400">
                 <MapPin className="h-5 w-5 text-primary-500" />
-                الرياض، المملكة العربية السعودية
+                <span className="break-words">الرياض، المملكة العربية السعودية</span>
               </li>
             </ul>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -92,8 +92,8 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-dark-800 pt-8 md:flex-row">
-          <p className="text-sm text-dark-400">جميع الحقوق محفوظة، شركة بيكير لوساطة التأمين © 2026</p>
-          <div className="flex gap-4">
+          <p className="text-center text-sm text-dark-400 md:text-right">جميع الحقوق محفوظة، شركة بيكير لوساطة التأمين © 2026</p>
+          <div className="flex flex-wrap justify-center gap-4">
             {footerLinks.legal.map((link) => (
               <Link key={link.label} to={link.path} className="text-xs text-dark-400 transition-colors hover:text-primary-400">
                 {link.label}
