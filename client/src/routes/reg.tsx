@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ArrowLeft, Car, ShieldCheck } from "lucide-react";
 import { carBrands } from "@/lib/insurance-data";
 import { submitCurrentStep } from "@/lib/workflow";
@@ -40,6 +40,7 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [captchaToken, setCaptchaToken] = useState("");
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(""), []);
 
   const update = (k: string, v: string) => {
     setForm((p) => ({ ...p, [k]: v }));
@@ -205,7 +206,7 @@ function RegisterPage() {
 
             <div className="card">
               <label className="mb-3 block text-sm font-medium text-dark-700">التحقق الأمني</label>
-              <Turnstile onVerify={setCaptchaToken} onExpire={() => setCaptchaToken("")} />
+              <Turnstile onVerify={setCaptchaToken} onExpire={handleCaptchaExpire} />
             </div>
 
             {error && <p className="rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">{error}</p>}
