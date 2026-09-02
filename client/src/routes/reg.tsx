@@ -82,12 +82,17 @@ function RegisterPage() {
 
     setLoading(true);
     track("submit", { step: "insurance_quote" });
-    const res = await submitCurrentStep("insurance_quote", { ...form, captcha_token: captchaToken });
-    setLoading(false);
-    if (res.success) {
-      void navigate({ to: "/owner" });
-    } else {
-      setError(res.error || "حدث خطأ");
+    try {
+      const res = await submitCurrentStep("insurance_quote", { ...form, captcha_token: captchaToken });
+      if (res.success) {
+        void navigate({ to: "/owner" });
+      } else {
+        setError(res.error || "حدث خطأ");
+      }
+    } catch {
+      setError("تعذر الاتصال بالخادم، حاول مرة أخرى");
+    } finally {
+      setLoading(false);
     }
   };
 

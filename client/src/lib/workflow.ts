@@ -71,10 +71,18 @@ const API_PREFIX = `${API_BASE}/api`;
 const LOCAL_PREVIEW_MODE = !API_BASE;
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_PREFIX}${path}`, {
-    ...init,
-    headers: { "Content-Type": "application/json", ...(init?.headers || {}) },
-  });
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 10000);
+  let response: Response;
+  try {
+    response = await fetch(`${API_PREFIX}${path}`, {
+      ...init,
+      signal: controller.signal,
+      headers: { "Content-Type": "application/json", ...(init?.headers || {}) },
+    });
+  } finally {
+    window.clearTimeout(timeout);
+  }
   const payload = (await response.json().catch(() => ({}))) as T & { error?: string };
   if (!response.ok) throw new Error(payload.error || "تعذر الاتصال بالخادم");
   return payload;
