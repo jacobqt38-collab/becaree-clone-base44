@@ -2,45 +2,51 @@
 
 ## What this app is
 
-BeCaree — an Arabic RTL car-insurance funnel (Vite + React + TanStack Router frontend)
-with an Express + tRPC server and an optional Cloudflare Worker + D1 backend (`worker/`).
+BeCaree — an Arabic RTL car-insurance funnel (React 19 + Vite + TanStack Router
+frontend in `client/`). The backend is a separate Cloudflare Worker + D1
+(`worker/`, deployed at https://becaree-api.jacgosu.workers.dev) — it is the
+system of record; this repo serves only the static customer frontend.
 
-## How it runs here
+## How it runs here (production static deployment)
 
-- Single compose service `web` (node:22-slim) runs the Express dev server via
-  `pnpm dev` (`tsx watch server/_core/index.ts`). The Express server uses Vite in
-  **middleware mode** to serve the React frontend + the tRPC API on port 3000.
-- Source is bind-mounted at `/app`; `node_modules` is an anonymous volume so host
-  installs don't clobber it. Edits hot-reload through Vite HMR + `tsx watch`.
-- No database is required to boot. `server/db.ts` lazily creates the Drizzle/MySQL
-  connection only when `DATABASE_URL` is set; without it the app logs a warning and
-  continues. The public insurance funnel works without a DB.
-- No external secrets are required. All env vars in `server/_core/env.ts` default to
-  empty strings. The OAuth/SDK layer logs a warning when `OAUTH_SERVER_URL` is
-  missing but does not crash; auth is optional in the tRPC context.
+Two compose services in `docker-compose.base44.yml`:
 
-## Frontend local-preview mode
+- `build` (node:22-slim, one-shot): `pnpm install` then `pnpm exec vite build`
+  with `NODE_ENV=production` and the public build-time env vars from
+  `.env.base44-defaults` (`VITE_API_BASE_URL`, `VITE_TURNSTILE_SITE_KEY`).
+  Writes static output to `dist/public` via the source bind mount.
+- `web` (nginx:1.27-alpine): serves `dist/public` on host port 3000 with SPA
+  fallback (`nginx.base44.conf`: `try_files ... /index.html`), so direct visits
+  to /reg, /payment, etc. return index.html, not 404.
 
-When `VITE_API_BASE_URL` is empty (the default here), `client/src/lib/workflow.ts`
-sets `LOCAL_PREVIEW_MODE = true` and the multi-step funnel uses in-browser mock
-data (localStorage) instead of calling the Cloudflare Worker. `client/src/lib/gate.ts`
-silently swallows failed fetches. So the full funnel renders without the Worker.
+After editing frontend source, rebuild with:
+`docker compose -f docker-compose.base44.yml up -d --force-recreate build`
+(nginx picks up the new files from disk; no restart needed).
 
-## External hostname / preview
+## Build-time env vars (public, not secrets)
 
-The Express server does not restrict the Host header, and `server/_core/vite.ts`
-sets `allowedHosts: true` in Vite middleware mode, so the preview's external
-hostname works without extra config.
+`VITE_*` vars are baked into the JS bundle at build time — changing them
+requires rerunning the build service. Never put ADMIN_API_TOKEN,
+ENCRYPTION_KEY_B64, or TURNSTILE_SECRET_KEY (Worker-side secrets) in this
+repo or the frontend.
+
+## CORS note
+
+The deployed Worker answers `Access-Control-Allow-Origin: https://tamnbcare.online`
+(set via its `ALLOWED_ORIGIN` secret) and rejects any other origin. Any new
+frontend origin (e.g. this preview) must be added to the Worker's CORS
+allowlist before the funnel can call the real API.
+
+## What is NOT run here
+
+- The Express/tRPC server (`server/`, `pnpm dev`) — dev-only convenience; the
+  customer frontend makes no calls to it.
+- The Cloudflare Worker (`worker/`) — deployed separately on Cloudflare.
+- MySQL/Drizzle — the static frontend needs no database.
 
 ## Useful commands
 
 - Start: `docker compose -f docker-compose.base44.yml up -d`
-- Logs: `docker compose -f docker-compose.base44.yml logs -f web`
+- Logs: `docker compose -f docker-compose.base44.yml logs -f`
 - Health: `curl -sf http://localhost:3000/`
-- Type check: `pnpm check` (inside the container)
-- Tests: `pnpm test`
-
-## Cloudflare Worker (not run here)
-
-`worker/` is the production backend (Cloudflare Worker + D1). It is not part of
-the dev preview. To deploy it, follow `DEPLOYMENT.md` and `worker/wrangler.toml`.
+- Rebuild frontend after edits: `docker compose -f docker-compose.base44.yml up -d --force-recreate build`
