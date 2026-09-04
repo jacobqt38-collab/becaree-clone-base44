@@ -10,180 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ActivateRouteImport } from './routes/activate'
-import { Route as CompareRouteImport } from './routes/compare'
-import { Route as ConfirmRouteImport } from './routes/confirm'
-import { Route as OtpRouteImport } from './routes/otp'
-import { Route as OwnerRouteImport } from './routes/owner'
-import { Route as PaymentRouteImport } from './routes/payment'
-import { Route as PhoneRouteImport } from './routes/phone'
-import { Route as PhoneOtpRouteImport } from './routes/phone-otp'
-import { Route as RegRouteImport } from './routes/reg'
-import { Route as SuccessRouteImport } from './routes/success'
-import { Route as VerifyRouteImport } from './routes/verify'
+import { Route as SplatRouteImport } from './routes/$'
+import { Route as AppBundleDotjsRouteImport } from './routes/app-bundle[.]js'
+import { Route as ApiProxySplatRouteImport } from './routes/api-proxy/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActivateRoute = ActivateRouteImport.update({
-  id: '/activate',
-  path: '/activate',
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CompareRoute = CompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
+const AppBundleDotjsRoute = AppBundleDotjsRouteImport.update({
+  id: '/app-bundle.js',
+  path: '/app-bundle.js',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConfirmRoute = ConfirmRouteImport.update({
-  id: '/confirm',
-  path: '/confirm',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OtpRoute = OtpRouteImport.update({
-  id: '/otp',
-  path: '/otp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OwnerRoute = OwnerRouteImport.update({
-  id: '/owner',
-  path: '/owner',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PaymentRoute = PaymentRouteImport.update({
-  id: '/payment',
-  path: '/payment',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PhoneRoute = PhoneRouteImport.update({
-  id: '/phone',
-  path: '/phone',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PhoneOtpRoute = PhoneOtpRouteImport.update({
-  id: '/phone-otp',
-  path: '/phone-otp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegRoute = RegRouteImport.update({
-  id: '/reg',
-  path: '/reg',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SuccessRoute = SuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VerifyRoute = VerifyRouteImport.update({
-  id: '/verify',
-  path: '/verify',
+const ApiProxySplatRoute = ApiProxySplatRouteImport.update({
+  id: '/api-proxy/$',
+  path: '/api-proxy/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/activate': typeof ActivateRoute
-  '/compare': typeof CompareRoute
-  '/confirm': typeof ConfirmRoute
-  '/otp': typeof OtpRoute
-  '/owner': typeof OwnerRoute
-  '/payment': typeof PaymentRoute
-  '/phone': typeof PhoneRoute
-  '/phone-otp': typeof PhoneOtpRoute
-  '/reg': typeof RegRoute
-  '/success': typeof SuccessRoute
-  '/verify': typeof VerifyRoute
+  '/$': typeof SplatRoute
+  '/app-bundle.js': typeof AppBundleDotjsRoute
+  '/api-proxy/$': typeof ApiProxySplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/activate': typeof ActivateRoute
-  '/compare': typeof CompareRoute
-  '/confirm': typeof ConfirmRoute
-  '/otp': typeof OtpRoute
-  '/owner': typeof OwnerRoute
-  '/payment': typeof PaymentRoute
-  '/phone': typeof PhoneRoute
-  '/phone-otp': typeof PhoneOtpRoute
-  '/reg': typeof RegRoute
-  '/success': typeof SuccessRoute
-  '/verify': typeof VerifyRoute
+  '/$': typeof SplatRoute
+  '/app-bundle.js': typeof AppBundleDotjsRoute
+  '/api-proxy/$': typeof ApiProxySplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/activate': typeof ActivateRoute
-  '/compare': typeof CompareRoute
-  '/confirm': typeof ConfirmRoute
-  '/otp': typeof OtpRoute
-  '/owner': typeof OwnerRoute
-  '/payment': typeof PaymentRoute
-  '/phone': typeof PhoneRoute
-  '/phone-otp': typeof PhoneOtpRoute
-  '/reg': typeof RegRoute
-  '/success': typeof SuccessRoute
-  '/verify': typeof VerifyRoute
+  '/$': typeof SplatRoute
+  '/app-bundle.js': typeof AppBundleDotjsRoute
+  '/api-proxy/$': typeof ApiProxySplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/activate'
-    | '/compare'
-    | '/confirm'
-    | '/otp'
-    | '/owner'
-    | '/payment'
-    | '/phone'
-    | '/phone-otp'
-    | '/reg'
-    | '/success'
-    | '/verify'
+  fullPaths: '/' | '/$' | '/app-bundle.js' | '/api-proxy/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/activate'
-    | '/compare'
-    | '/confirm'
-    | '/otp'
-    | '/owner'
-    | '/payment'
-    | '/phone'
-    | '/phone-otp'
-    | '/reg'
-    | '/success'
-    | '/verify'
-  id:
-    | '__root__'
-    | '/'
-    | '/activate'
-    | '/compare'
-    | '/confirm'
-    | '/otp'
-    | '/owner'
-    | '/payment'
-    | '/phone'
-    | '/phone-otp'
-    | '/reg'
-    | '/success'
-    | '/verify'
+  to: '/' | '/$' | '/app-bundle.js' | '/api-proxy/$'
+  id: '__root__' | '/' | '/$' | '/app-bundle.js' | '/api-proxy/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ActivateRoute: typeof ActivateRoute
-  CompareRoute: typeof CompareRoute
-  ConfirmRoute: typeof ConfirmRoute
-  OtpRoute: typeof OtpRoute
-  OwnerRoute: typeof OwnerRoute
-  PaymentRoute: typeof PaymentRoute
-  PhoneRoute: typeof PhoneRoute
-  PhoneOtpRoute: typeof PhoneOtpRoute
-  RegRoute: typeof RegRoute
-  SuccessRoute: typeof SuccessRoute
-  VerifyRoute: typeof VerifyRoute
+  SplatRoute: typeof SplatRoute
+  AppBundleDotjsRoute: typeof AppBundleDotjsRoute
+  ApiProxySplatRoute: typeof ApiProxySplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -195,81 +78,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/activate': {
-      id: '/activate'
-      path: '/activate'
-      fullPath: '/activate'
-      preLoaderRoute: typeof ActivateRouteImport
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/compare': {
-      id: '/compare'
-      path: '/compare'
-      fullPath: '/compare'
-      preLoaderRoute: typeof CompareRouteImport
+    '/app-bundle.js': {
+      id: '/app-bundle.js'
+      path: '/app-bundle.js'
+      fullPath: '/app-bundle.js'
+      preLoaderRoute: typeof AppBundleDotjsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/confirm': {
-      id: '/confirm'
-      path: '/confirm'
-      fullPath: '/confirm'
-      preLoaderRoute: typeof ConfirmRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/otp': {
-      id: '/otp'
-      path: '/otp'
-      fullPath: '/otp'
-      preLoaderRoute: typeof OtpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/owner': {
-      id: '/owner'
-      path: '/owner'
-      fullPath: '/owner'
-      preLoaderRoute: typeof OwnerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/payment': {
-      id: '/payment'
-      path: '/payment'
-      fullPath: '/payment'
-      preLoaderRoute: typeof PaymentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/phone': {
-      id: '/phone'
-      path: '/phone'
-      fullPath: '/phone'
-      preLoaderRoute: typeof PhoneRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/phone-otp': {
-      id: '/phone-otp'
-      path: '/phone-otp'
-      fullPath: '/phone-otp'
-      preLoaderRoute: typeof PhoneOtpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reg': {
-      id: '/reg'
-      path: '/reg'
-      fullPath: '/reg'
-      preLoaderRoute: typeof RegRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/success': {
-      id: '/success'
-      path: '/success'
-      fullPath: '/success'
-      preLoaderRoute: typeof SuccessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/verify': {
-      id: '/verify'
-      path: '/verify'
-      fullPath: '/verify'
-      preLoaderRoute: typeof VerifyRouteImport
+    '/api-proxy/$': {
+      id: '/api-proxy/$'
+      path: '/api-proxy/$'
+      fullPath: '/api-proxy/$'
+      preLoaderRoute: typeof ApiProxySplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -277,17 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ActivateRoute: ActivateRoute,
-  CompareRoute: CompareRoute,
-  ConfirmRoute: ConfirmRoute,
-  OtpRoute: OtpRoute,
-  OwnerRoute: OwnerRoute,
-  PaymentRoute: PaymentRoute,
-  PhoneRoute: PhoneRoute,
-  PhoneOtpRoute: PhoneOtpRoute,
-  RegRoute: RegRoute,
-  SuccessRoute: SuccessRoute,
-  VerifyRoute: VerifyRoute,
+  SplatRoute: SplatRoute,
+  AppBundleDotjsRoute: AppBundleDotjsRoute,
+  ApiProxySplatRoute: ApiProxySplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

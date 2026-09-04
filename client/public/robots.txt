@@ -1,14 +1,44 @@
 User-agent: Googlebot
-Allow: /
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Googlebot-News
+Disallow: /
+
+User-agent: Googlebot-Video
+Disallow: /
+
+User-agent: AdsBot-Google
+Disallow: /
+
+User-agent: AdsBot-Google-Mobile
+Disallow: /
+
+User-agent: AdsBot-Google-Mobile-Apps
+Disallow: /
+
+User-agent: Mediapartners-Google
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: APIs-Google
+Disallow: /
+
+User-agent: Storebot-Google
+Disallow: /
 
 User-agent: Bingbot
-Allow: /
+Disallow: /
 
 User-agent: Twitterbot
-Allow: /
+Disallow: /
 
 User-agent: facebookexternalhit
-Allow: /
+Disallow: /
 
 User-agent: *
-Allow: /
+Disallow: /
