@@ -1,0 +1,29 @@
+{
+  "id": "5323922c-a1de-42c0-9ffb-cef09d80188c",
+  "uuid": "5323922c-a1de-42c0-9ffb-cef09d80188c",
+  "createdAt": "2026-09-05T07:35:40.309Z",
+  "pages": {},
+  "ip": "109.107.242.194",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "browserInfo": {
+    "browser": "Chrome",
+    "browserVersion": "152.0.0.0",
+    "os": "macOS",
+    "device": "Desktop",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "language": "en-US",
+    "languages": [
+      "en-US",
+      "en"
+    ],
+    "platform": "MacIntel",
+    "screenWidth": 1440,
+    "screenHeight": 900,
+    "timezone": "Asia/Amman"
+  },
+  "lastSeen": "2026-09-05T07:35:42.276Z",
+  "stage": "init",
+  "updatedAt": "2026-09-05T07:35:42.277Z",
+  "socketId": "DqQ3n5N5uyajBB9MAAAA",
+  "lastPage": "الصفحة الرئيسية"
+}
