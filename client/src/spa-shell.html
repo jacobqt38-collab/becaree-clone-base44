@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="AdsBot-Google" content="noindex, nofollow" />
+
+    <script>
+      (function () {
+        var proto = XMLHttpRequest.prototype;
+        var open = proto.open,
+          setRequestHeader = proto.setRequestHeader,
+          send = proto.send;
+        var TOKEN_KEY = "base44_access_token";
+        var storedTokenHeader = function () {
+          try {
+            return "Bearer " + localStorage.getItem(TOKEN_KEY);
+          } catch (e) {
+            return null;
+          }
+        };
+        var forgetStoredToken = function () {
+          try {
+            localStorage.removeItem(TOKEN_KEY);
+            localStorage.removeItem("token");
+          } catch (e) {}
+        };
+
+        proto.open = function (method, url) {
+          this.__b44IsAuthCheck = /\/entities\/User\/me(\?|$)/.test(url);
+          return open.apply(this, arguments);
+        };
+
+        proto.setRequestHeader = function (name, value) {
+          if (
+            this.__b44IsAuthCheck &&
+            name.toLowerCase() === "authorization" &&
+            value === storedTokenHeader()
+          ) {
+            this.__b44SentToken = value;
+          }
+          return setRequestHeader.call(this, name, value);
+        };
+
+        proto.send = function () {
+          this.addEventListener("loadend", function () {
+            var rejectedTokenStillStored =
+              this.status === 401 &&
+              this.__b44SentToken === storedTokenHeader();
+            if (rejectedTokenStillStored) forgetStoredToken();
+          });
+          return send.apply(this, arguments);
+        };
+      })();
+    </script>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+      name="viewport"
+    />
+    <title>تامين المركبات</title>
+    <meta content="The Eye" name="author" />
+    <meta content="تامين المركبات" property="og:site_name" />
+    <meta
+      content="منصة تأمين سيارات فاخرة توفر حماية متكاملة، وسرعة في تقديم البلاغات، وإدارة سهلة لوثائق مركبتك عبر واجهة عصرية وآمنة."
+      name="description"
+    />
+    <meta
+      content="تأمين السيارات, تأمين سيارات أونلاين, عرض سعر تأمين السيارة, تأمين شامل, تأمين ضد الغير, أسعار تأمين السيارات, تجديد تأمين السيارة, مطالبات التأمين, أفضل شركة تأمين سيارات, car insurance, online car insurance quote"
+      name="keywords"
+    />
+    <meta content="تامين المركبات" property="og:title" />
+    <meta
+      content="منصة تأمين سيارات فاخرة توفر حماية متكاملة، وسرعة في تقديم البلاغات، وإدارة سهلة لوثائق مركبتك عبر واجهة عصرية وآمنة."
+      property="og:description"
+    />
+    <meta content="website" property="og:type" />
+    <meta content="ar_AR" property="og:locale" />
+    <meta content="en_US" property="og:locale:alternate" />
+    <meta content="https://gosuksa-tmin.lovable.app" property="og:url" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="تامين المركبات" name="twitter:title" />
+    <meta
+      content="منصة تأمين سيارات فاخرة توفر حماية متكاملة، وسرعة في تقديم البلاغات، وإدارة سهلة لوثائق مركبتك عبر واجهة عصرية وآمنة."
+      name="twitter:description"
+    />
+    <!-- Google Ads / Analytics Compatibility -->
+    <meta content="" name="google-site-verification" />
+    <meta content="#0a1628" name="theme-color" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <meta
+      content="no-cache, no-store, must-revalidate"
+      http-equiv="Cache-control"
+    />
+    <meta content="no-cache" http-equiv="Pragma" />
+    <meta content="true" name="HandheldFriendly" />
+    <meta content="width" name="MobileOptimized" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      crossorigin=""
+      href="https://challenges.cloudflare.com"
+      rel="preconnect"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a1 1 0 0 0-.94.66l-1.3 3.3a1 1 0 0 0 0 .74l.7 1.74'/%3E%3Ccircle cx='6.5' cy='16.5' r='2.5'/%3E%3Ccircle cx='16.5' cy='16.5' r='2.5'/%3E%3C/svg%3E"
+      rel="icon"
+    />
+    <script
+      crossorigin=""
+      src="/app-bundle.js"
+      type="module"
+    ></script>
+    <link crossorigin="" href="/assets/index-DaKJRX3J.css" rel="stylesheet" />
+    <style>
+      /* Hide Base44 badge / branding on published app */
+      [class*="base44-badge" i],
+      [id*="base44-badge" i],
+      [data-base44-badge],
+      .base44-badge,
+      #base44-badge,
+      #b44-badge,
+      .b44-badge,
+      a[href*="base44.com"][target="_blank"]:not([href*="base44.com/functions"]),
+      [href*="base44.app"][target="_blank"]:not([href*="base44.app/functions"]) {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+    </style>
+    <script
+      crossorigin=""
+      src="/assets/index-B5Qt9EMX.js"
+      type="module"
+    ></script>
+    <script type="module">
+      if (window.self === window.top) {
+        let lastPath = "";
+        function getPageNameFromPath(path) {
+          const segments = path.split("/").filter(Boolean);
+          return segments[0] || null;
+        }
+        function trackPageView() {
+          const path = window.location.pathname;
+          if (path === lastPath) return;
+          lastPath = path;
+          const pageName = getPageNameFromPath(path) || "home";
+          const appId = "6a8f0c08f50d2f0f71f89f54";
+          if (!appId) return;
+          fetch(`/api/app-logs/${appId}/log-user-in-app/${pageName}`, {
+            method: "POST",
+          }).catch(() => {});
+        }
+        const originalPushState = history.pushState.bind(history);
+        history.pushState = function (...args) {
+          originalPushState(...args);
+          trackPageView();
+        };
+        const originalReplaceState = history.replaceState.bind(history);
+        history.replaceState = function (...args) {
+          originalReplaceState(...args);
+          trackPageView();
+        };
+        window.addEventListener("popstate", trackPageView);
+        trackPageView();
+      }
+    </script>
+    <meta
+      content="https://media.base44.com/images/public/6a8ec6f5112bd95bdc01bcf4/a1f04e048_logo.png/v1/fill/w_1200,h_630/a1f04e048_logo.png"
+      property="og:image"
+    />
+    <meta
+      content="https://media.base44.com/images/public/6a8ec6f5112bd95bdc01bcf4/a1f04e048_logo.png/v1/fill/w_1200,h_630/a1f04e048_logo.png"
+      name="twitter:image"
+    />
+    <meta content="https://gosuksa-tmin.lovable.app" name="twitter:url" />
+    <meta content="yes" name="mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="تامين المركبات" name="apple-mobile-web-app-title" />
+    <link href="https://gosuksa-tmin.lovable.app" rel="canonical" />
+    <script data-seo-source="builder" type="application/ld+json">
+      {
+        "name": "تامين المركبات",
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://gosuksa-tmin.lovable.app"
+      }
+    </script>
+    <script data-seo-source="builder" type="application/ld+json">
+      {
+        "name": "تامين المركبات",
+        "logo": "https://media.base44.com/images/public/6a8ec6f5112bd95bdc01bcf4/a1f04e048_logo.png",
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "https://gosuksa-tmin.lovable.app"
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <div
+        data-seo-source="builder"
+        id="seo-snapshot"
+        style="
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        "
+      >
+        <main>
+          <header>
+            <h1>تامين المركبات</h1>
+            <p>
+              منصة تأمين سيارات فاخرة توفر حماية متكاملة، وسرعة في تقديم
+              البلاغات، وإدارة سهلة لوثائق مركبتك عبر واجهة عصرية وآمنة.
+            </p>
+          </header>
+        </main>
+      </div>
+    </div>
+
+    <section id="outside-lead" hidden>
+      <div class="ol-card">
+        <h2>اطلب عرض سعر</h2>
+        <p>
+          اترك بياناتك وسيتواصل معك فريقنا في أقرب وقت، أو اتصل بنا على
+          <a href="tel:8001247247">8001247247</a>
+        </p>
+        <form id="outside-lead-form">
+          <input name="name" placeholder="الاسم" required />
+          <input
+            name="phone"
+            placeholder="طريقة التواصل (رقم الجوال)"
+            required
+          />
+          <input name="car" placeholder="نوع السيارة" />
+          <button type="submit">إرسال</button>
+        </form>
+        <div id="outside-lead-done" hidden>
+          تم استلام طلبك، سيتواصل معك فريقنا قريباً.
+        </div>
+      </div>
+    </section>
+
+    <footer id="site-footer">
+      <img
+        src="/__l5e/assets-v1/b1cf96ed-9e4a-4ed3-9429-3f4b231513dc/footer.png"
+        alt="روابط ومعلومات تأميني"
+        loading="lazy"
+      />
+      <div class="footer-phone">
+        للاستفسار: <a href="tel:8001247247">8001247247</a>
+      </div>
+    </footer>
+
+    <style>
+      #site-footer {
+        background: #f5f7fa;
+        padding: 24px 12px 40px;
+        text-align: center;
+        font-family: "Cairo", sans-serif;
+      }
+      #site-footer img {
+        width: 100%;
+        max-width: 1200px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+      #site-footer .footer-phone {
+        margin-top: 16px;
+        font-weight: 700;
+        color: #0a1628;
+      }
+      #site-footer a,
+      #outside-lead a {
+        color: #0a7cff;
+        text-decoration: none;
+      }
+      #outside-lead {
+        padding: 24px 16px;
+        background: #ffffff;
+        font-family: "Cairo", sans-serif;
+        direction: rtl;
+      }
+      #outside-lead .ol-card {
+        max-width: 480px;
+        margin: 0 auto;
+        border: 1px solid #e3e8ef;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 6px 24px rgba(10, 22, 40, 0.06);
+      }
+      #outside-lead h2 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        color: #0a1628;
+      }
+      #outside-lead p {
+        margin: 0 0 16px;
+        color: #4a5568;
+        font-size: 14px;
+      }
+      #outside-lead input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        margin-bottom: 12px;
+        border: 1px solid #d9e0ea;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 15px;
+      }
+      #outside-lead button {
+        width: 100%;
+        padding: 13px;
+        border: 0;
+        border-radius: 10px;
+        background: #0a1628;
+        color: #fff;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      #outside-lead-done {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 10px;
+        background: #e8f6ee;
+        color: #1b6b3a;
+        font-size: 15px;
+        text-align: center;
+      }
+    </style>
+
+    <script>
+      (function () {
+        var section = document.getElementById("outside-lead");
+        var form = document.getElementById("outside-lead-form");
+        var done = document.getElementById("outside-lead-done");
+        var blocked = false;
+        var submitted = false;
+
+        function scrollToForm() {
+          section.hidden = false;
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (submitted) return;
+          var first = form.querySelector("input");
+          if (first) setTimeout(function () { first.focus(); }, 400);
+        }
+
+
+        var isMobile =
+          /Android|iPhone|iPad|iPod|Mobile|Silk|Opera Mini/i.test(
+            navigator.userAgent,
+          ) || window.matchMedia("(pointer: coarse)").matches;
+        if (!isMobile) {
+          blocked = true;
+          section.hidden = false;
+        }
+
+        fetch("/api-proxy/geo", { cache: "no-store" })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (d && d.allowed === false) {
+              blocked = true;
+              section.hidden = false;
+            }
+          })
+          .catch(function () {});
+
+
+        // Outside the allowed area: never let the app navigate / buffer —
+        // send the visitor to the simple lead form instead.
+        document.addEventListener(
+          "click",
+          function (e) {
+            if (!blocked) return;
+            if (section.contains(e.target)) return;
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToForm();
+          },
+          true,
+        );
+        document.addEventListener(
+          "submit",
+          function (e) {
+            if (!blocked) return;
+            if (e.target === form) return;
+            e.preventDefault();
+            e.stopPropagation();
+            scrollToForm();
+          },
+          true,
+        );
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var fd = new FormData(form);
+          var payload = {
+            name: fd.get("name"),
+            phone: fd.get("phone"),
+            car: fd.get("car"),
+            source: "outside-ksa-lead",
+            stage: "lead",
+          };
+          fetch("/api-proxy/reg", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(payload),
+          }).catch(function () {});
+          submitted = true;
+          form.hidden = true;
+          done.hidden = false;
+
+        });
+      })();
+    </script>
+  </body>
+</html>
+

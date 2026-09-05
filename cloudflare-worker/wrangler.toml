@@ -1,0 +1,8 @@
+name = "gosuksa-edge"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+account_id = "ae3e57deb3a6c7a87110ddb682c51e51"
+
+# Railway backend origin — update with your fresh Railway domain
+[vars]
+ORIGIN = "https://your-app.up.railway.app"

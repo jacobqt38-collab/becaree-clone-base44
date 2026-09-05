@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import shellHtml from "../spa-shell.html?raw";
 import { isBotRequest, botBlockedResponse } from "@/lib/bot-guard";
 
-// The original gosuksa.com build is served verbatim: the exported bundle lives
-// in /public/assets and this route returns its index.html shell untouched.
-export const Route = createFileRoute("/")({
+// Client-side routes of the original SPA (/details, /pay, /invoice, ...) must
+// all resolve to the same shell so deep links and refreshes keep working.
+export const Route = createFileRoute("/$")({
   server: {
     handlers: {
       GET: ({ request }) => {

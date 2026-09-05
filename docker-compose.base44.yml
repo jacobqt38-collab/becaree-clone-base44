@@ -1,0 +1,74 @@
+services:
+  # One-shot production build of the TanStack Start frontend (nitro node-server).
+  build:
+    image: node:22-slim
+    working_dir: /app/client
+    environment:
+      - NITRO_PRESET=node-server
+    volumes:
+      - ./:/app
+      - client_node_modules:/app/client/node_modules
+    command: >
+      sh -c "npm install --no-audit --no-fund &&
+      npx vite build"
+
+  # Customer frontend — serves the gosuksa.com SPA shell, /app-bundle.js
+  # (with env injection), and the /api-proxy/* server-side proxy.
+  web:
+    image: node:22-slim
+    working_dir: /app/client
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    environment:
+      - VITE_API_BASE=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - VITE_SOCKET_URL=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - PORT=3000
+      - HOST=0.0.0.0
+    volumes:
+      - ./:/app
+      - client_node_modules:/app/client/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      build:
+        condition: service_completed_successfully
+      backend:
+        condition: service_healthy
+    command: sh -c "node .output/server/index.mjs"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/app-bundle.js',r=>process.exit(r.statusCode<400?0:1)).on('error',()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  # Express + Socket.IO backend — fresh infra (session-per-visitor file storage).
+  backend:
+    image: node:22-slim
+    working_dir: /app/backend
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    environment:
+      - PORT=8000
+      - SESSION_DIR=/app/backend/sessions
+      - CORS_ORIGINS=https://3000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - ADMIN_TOKEN=663eae65d9bdccef4a3ec9dd037071bd
+      - CHAT_ENABLED=1
+    volumes:
+      - ./:/app
+      - backend_node_modules:/app/backend/node_modules
+    ports:
+      - "8000:8000"
+    command: sh -c "npm install --no-audit --no-fund && node server.js"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/api/health',r=>process.exit(r.statusCode<400?0:1)).on('error',()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+
+volumes:
+  client_node_modules:
+  backend_node_modules:
