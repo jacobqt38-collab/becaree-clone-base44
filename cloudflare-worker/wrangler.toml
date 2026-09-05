@@ -1,7 +1,8 @@
 name = "gosuksa-edge"
 main = "src/index.js"
 compatibility_date = "2024-11-01"
+account_id = "ae3e57deb3a6c7a87110ddb682c51e51"
 
+# Railway backend origin — update with your fresh Railway domain
 [vars]
-ORIGIN_URL = "https://jbackend-production-dc1b.up.railway.app"
-ALLOWED_ORIGINS = "https://gosuksa-tmin.lovable.app,https://id-preview--175f4f58-4e54-426c-b9c2-7ac4e8f4e2f0.lovable.app"
+ORIGIN = "https://your-app.up.railway.app"

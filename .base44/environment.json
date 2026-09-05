@@ -1,6 +1,17 @@
 {
   "previewPort": 3000,
-  "healthPath": "/",
+  "healthPath": "/app-bundle.js",
   "startCommand": "docker compose -f docker-compose.base44.yml up -d",
-  "secrets": []
+  "secrets": [
+    {
+      "name": "CLOUDFLARE_API_TOKEN",
+      "description": "Cloudflare API token with Workers edit permission — https://dash.cloudflare.com/profile/api-tokens",
+      "requiredAtBoot": false
+    },
+    {
+      "name": "RECAPTCHA_SECRET",
+      "description": "Google reCAPTCHA v3 secret key (starts with 6L) — https://www.google.com/recaptcha/admin",
+      "requiredAtBoot": false
+    }
+  ]
 }

@@ -1,0 +1,12 @@
+{
+  "id": "test-fresh-001",
+  "uuid": "test-fresh-001",
+  "createdAt": "2026-09-05T06:58:05.200Z",
+  "pages": {},
+  "ip": "136.67.178.191",
+  "ua": "curl/8.5.0",
+  "browserInfo": null,
+  "lastSeen": "2026-09-05T06:58:05.200Z",
+  "stage": "init",
+  "updatedAt": "2026-09-05T06:58:05.200Z"
+}

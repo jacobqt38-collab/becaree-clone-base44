@@ -21,7 +21,8 @@ services:
       - ./.env.base44-defaults
       - /run/base44/app.env
     environment:
-      - VITE_BACKEND_WS_URL=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - VITE_API_BASE=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - VITE_SOCKET_URL=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
       - PORT=3000
       - HOST=0.0.0.0
     volumes:
@@ -42,7 +43,7 @@ services:
       retries: 30
       start_period: 10s
 
-  # Express + Socket.IO backend (gosuksa-backend) — customer + admin endpoints.
+  # Express + Socket.IO backend — fresh infra (session-per-visitor file storage).
   backend:
     image: node:22-slim
     working_dir: /app/backend
@@ -51,8 +52,9 @@ services:
       - /run/base44/app.env
     environment:
       - PORT=8000
+      - SESSION_DIR=/app/backend/sessions
       - CORS_ORIGINS=https://3000-${BASE44_PUBLIC_HOST_SUFFIX}
-      - ADMIN_TOKEN=dev-admin-token
+      - ADMIN_TOKEN=663eae65d9bdccef4a3ec9dd037071bd
       - CHAT_ENABLED=1
     volumes:
       - ./:/app
@@ -61,7 +63,7 @@ services:
       - "8000:8000"
     command: sh -c "npm install --no-audit --no-fund && node server.js"
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health',r=>process.exit(r.statusCode<400?0:1)).on('error',()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/api/health',r=>process.exit(r.statusCode<400?0:1)).on('error',()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 30

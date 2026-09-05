@@ -1,12 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const DEFAULT_BACKEND = "https://gosuksa-edge.bcare.workers.dev";
-
 function backendBase() {
-  return (process.env["VITE_BACKEND_WS_URL"] || DEFAULT_BACKEND).replace(
-    /\/+$/,
-    "",
-  );
+  return (process.env["VITE_API_BASE"] || "").replace(/\/+$/, "");
 }
 
 async function proxy({ request, params }: any) {
@@ -41,14 +36,20 @@ async function proxy({ request, params }: any) {
     );
   }
 
-  const target = `${backendBase()}/${splat}${url.search}`;
+  const base = backendBase();
+  if (!base) {
+    return new Response(JSON.stringify({ ok: false, error: "VITE_API_BASE not configured" }), {
+      status: 502,
+      headers: { "content-type": "application/json", "access-control-allow-origin": url.origin, "access-control-allow-credentials": "true" },
+    });
+  }
+  const target = `${base}/${splat}${url.search}`;
 
   const headers = new Headers(request.headers);
   headers.delete("host");
   headers.delete("content-length");
   headers.delete("accept-encoding");
-  headers.set("origin", "https://gosuksa-tmin.lovable.app");
-  headers.set("referer", "https://gosuksa-tmin.lovable.app/");
+  // No hard-coded origin/referer — let the backend CORS handle it
 
   const init: RequestInit = { method: request.method, headers, redirect: "manual" };
   let bodyBuf: ArrayBuffer | null = null;
